@@ -1,115 +1,72 @@
 <template>
-  <div>
-    <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
-                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
-                    </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
-                    </li>
-                </ul>
-                <hr>
-                <div class="dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">loser</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
-            </div>
+  <div class="dashboard-nav" :class="{ 'mobile-show': (toggleSidebar == 'mobile-show' && isHideSideBar)}">
+    <header>
+      <a href="#!" class="menu-toggle" style="color: red">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="brand-logo">
+        <i class="fas fa-anchor"></i>
+        <span style="color: #d52327;">Binggo</span>
+      </div>
+    </header>
+    <nav class="dashboard-nav-list">
+      <div v-for="(sideBar, index) in sidebarList" :key="index">
+        <div v-if="!sideBar.child">
+          <a href="#" class="dashboard-nav-item">
+            <i :class="sideBar.icon"></i> <span>{{sideBar.text}}</span>
+          </a>
         </div>
-        <div class="col py-3">
-            <h3>Left Sidebar with Submenus</h3>
-            <p class="lead">
-                An example 2-level sidebar with collasible menu items. The menu functions like an "accordion" where only a single 
-                menu is be open at a time. While the sidebar itself is not toggle-able, it does responsively shrink in width on smaller screens.</p>
-            <ul class="list-unstyled">
-                <li><h5>Responsive</h5> shrinks in width, hides text labels and collapses to icons only on mobile</li>
-            </ul>
+        <div v-else class="dashboard-nav-dropdown" :class="{ show: itemActive == index }">
+          <a
+            @click="setActive(index)"
+            class="dashboard-nav-item dashboard-nav-dropdown-toggle"
+          >
+            <i :class="sideBar.icon"></i> {{sideBar.text}}
+          </a>
+          <div class='dashboard-nav-dropdown-menu'>
+            <a v-for="(child, key) in sideBar.child" :key="key" href="#" class="dashboard-nav-dropdown-item">
+              {{child.name}}
+            </a>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
+    </nav>
   </div>
 </template>
+<script setup>
+  import { ref, defineProps } from 'vue'
+  import Sidebar from '../../configs/sidebar'
 
-<script>
-  export default {
-    name: "SidebarView",
-    data() {
-      return {
-        
-      }
-    },
-    methods: {
+  const sidebarList = ref(Sidebar.SIDEBAR);
+
+  const itemActive = ref(null)
+
+  function setActive(item) {
+    if (itemActive.value == item) {
+      itemActive.value = null;
+    } else {
+      itemActive.value = item;
     }
   }
+  
+  defineProps({
+    isHideSideBar: Boolean,
+    toggleSidebar: String,
+  });
 </script>
 
-<style scoped>
+<script>
+
+export default {
+  name: "HeaderComponent",
+  data() {
+    return {
+    }
+  }
+}
+</script>
+
+<style>
 :root {
     --font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -137,7 +94,7 @@ body {
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.5;
     color: #515151;
@@ -162,7 +119,7 @@ a {
 }
 
 a:hover {
-    color: #0458eb;
+    color: #d52327;
     text-decoration: underline;
 }
 
@@ -258,6 +215,7 @@ h1, .h1 {
 
 .dashboard-compact .dashboard-nav {
     display: none;
+    transition: all 2s linear;
 }
 
 .dashboard-nav header {
@@ -291,7 +249,7 @@ h1, .h1 {
 }
 
 .dashboard-nav {
-    background-color: #443ea2;
+    background-color: #2a3140;
 }
 
 .dashboard-nav a {
@@ -349,6 +307,13 @@ h1, .h1 {
     align-items: center;
     letter-spacing: 0.02em;
     transition: ease-out 0.5s;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dashboard-nav-item:hover {
+  background-color: #d52327 !important;
+  color: #fff;
 }
 
 .dashboard-nav-item i {
@@ -357,9 +322,6 @@ h1, .h1 {
     margin-left: -40px;
 }
 
-.dashboard-nav-item:hover {
-    background: rgba(255, 255, 255, 0.04);
-}
 
 .active {
     background: rgba(0, 0, 0, 0.1);
@@ -427,7 +389,7 @@ h1, .h1 {
 
 .dashboard-nav-dropdown-item {
     min-height: 40px;
-    padding: 8px 20px 8px 70px;
+    padding: 8px 20px 8px 50px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -437,10 +399,13 @@ h1, .h1 {
     -ms-flex-align: center;
     align-items: center;
     transition: ease-out 0.5s;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 .dashboard-nav-dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background-color: #d52327 !important;
+    color: #fff;
 }
 
 .menu-toggle {
@@ -459,16 +424,15 @@ h1, .h1 {
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
-    color: #443ea2;
+    color: #2a3140 !important;
 }
 
 .menu-toggle:hover, .menu-toggle:active, .menu-toggle:focus {
     text-decoration: none;
-    color: #875de5;
 }
 
 .menu-toggle i {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .dashboard-toolbar {
@@ -487,7 +451,7 @@ h1, .h1 {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 10;
 }
 
 .nav-item-divider {
@@ -507,7 +471,6 @@ h1, .h1 {
     }
 }
 
-
 @media (max-width: 768px) {
     .dashboard-content {
         padding: 15px 0px;
@@ -522,12 +485,25 @@ h1, .h1 {
         right: 0;
         left: 0;
         bottom: 0;
-        z-index: 1070;
+        z-index: 10;
+        background-color: #2a3140;
+    }
+
+    .dashboard-toolbar-menu {
+      background-color: #2a3140 !important;
+    }
+
+    .dashboard-toolbar-menu .menu-toggle {
+      color: #fff !important;
     }
 
     .dashboard-nav.mobile-show {
         display: block;
     }
+}
+
+.dashboard-toolbar {
+  background-color: #EEE;
 }
 
 @media (max-width: 992px) {

@@ -1,7 +1,21 @@
-<template c>
+<template>
   <div :class="{ 'opacity': isLoading }"></div>
-  <div>
-    <SideBar></SideBar>
+    <div class='dashboard' :class="{'dashboard-compact': isHideSideBar}">
+    <SideBar
+      :toggleSidebar="toggleSidebar"
+      :isHideSideBar="isHideSideBar"
+    ></SideBar>
+    <div class='dashboard-app'>
+      <Header
+        @toggle-sidebar="setValueToggleSidebar"
+        :isHideSideBar="isHideSideBar"
+      ></Header>
+      <div class='dashboard-content'>
+        <div class='container'>
+          <router-view />
+        </div>
+      </div>
+    </div>
   </div>
   <div :class="{ 'loader': isLoading }"></div>
 </template>
@@ -9,28 +23,32 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import SideBar from './views/commons/SideBar.vue'
+import Header from './views/commons/Header.vue'
 // import { useStore } from "vuex";
 import {mapActions} from "vuex";
 
 export default {
   name: 'App',
   components: {
-    SideBar
+    SideBar,
+    Header
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      toggleSidebar: '',
+      isHideSideBar: false
     }
   },
   async created() {
-    this.next();
   } , 
   methods: {
     ...mapActions({
       verifyAccount: 'authStore/verifyAccount',
     }),
-    next(){
-      this.verifyAccount()
+    setValueToggleSidebar(value) {
+      this.toggleSidebar = value;
+      this.isHideSideBar = !this.isHideSideBar;
     }
   }
 }
@@ -58,6 +76,7 @@ export default {
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
+  z-index: 200;
 }
 
 .opacity {
@@ -65,6 +84,7 @@ export default {
   width: 100%;
   height: 100%;
   opacity: 0.5;
+  z-index: 100;
   background-color: #f8f9fa;
 }
 
