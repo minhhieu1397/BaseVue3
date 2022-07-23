@@ -13,7 +13,7 @@
       <div v-for="(sideBar, index) in sidebarList" :key="index">
         <div v-if="!sideBar.child">
           <a href="#" class="dashboard-nav-item">
-            <i :class="sideBar.icon"></i> <span>{{sideBar.text}}</span>
+            <i :class="sideBar.icon"></i> <span>{{ sideBar.text }}</span>
           </a>
         </div>
         <div v-else class="dashboard-nav-dropdown" :class="{ show: itemActive == index }">
@@ -21,11 +21,11 @@
             @click="setActive(index)"
             class="dashboard-nav-item dashboard-nav-dropdown-toggle"
           >
-            <i :class="sideBar.icon"></i> {{sideBar.text}}
+            <i :class="sideBar.icon"></i>{{ sideBar.text }}
           </a>
           <div class='dashboard-nav-dropdown-menu'>
             <a v-for="(child, key) in sideBar.child" :key="key" href="#" class="dashboard-nav-dropdown-item">
-              {{child.name}}
+              {{ child.name }}
             </a>
           </div>
         </div>

@@ -31,6 +31,8 @@
   const { isHideSideBar } = toRefs(props);
 
   const emit = defineEmits(['toggle-sidebar'])
+
+  //Methods
   function changeSideBar() {
     if (window.matchMedia('(max-width: 900px)').matches) {
       emit('toggle-sidebar', 'mobile-show');
@@ -38,6 +40,8 @@
       emit('toggle-sidebar', 'dashboard-compact');
     }
   }
+
+  //Watch
   watch(isHideSideBar, async (newQuestion, oldQuestion) => {
     if (newQuestion == true && window.matchMedia('(max-width: 900px)').matches) {
       changeBackground.value = true

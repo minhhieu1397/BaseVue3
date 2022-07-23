@@ -1,21 +1,26 @@
 <template>
   <div :class="{ 'opacity': isLoading }"></div>
-    <div class='dashboard' :class="{'dashboard-compact': isHideSideBar}">
-    <SideBar
-      :toggleSidebar="toggleSidebar"
-      :isHideSideBar="isHideSideBar"
-    ></SideBar>
-    <div class='dashboard-app'>
-      <Header
-        @toggle-sidebar="setValueToggleSidebar"
+    <div v-if="isLogin">
+      <div class='dashboard' :class="{'dashboard-compact': isHideSideBar}">
+      <SideBar
+        :toggleSidebar="toggleSidebar"
         :isHideSideBar="isHideSideBar"
-      ></Header>
-      <div class='dashboard-content'>
-        <div class='container'>
-          <router-view />
+      ></SideBar>
+      <div class='dashboard-app'>
+        <Header
+          @toggle-sidebar="setValueToggleSidebar"
+          :isHideSideBar="isHideSideBar"
+        ></Header>
+        <div class='dashboard-content'>
+          <div class='container'>
+            <router-view />
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div v-else>
+    <router-view />
   </div>
   <div :class="{ 'loader': isLoading }"></div>
 </template>
@@ -37,7 +42,8 @@ export default {
     return {
       isLoading: false,
       toggleSidebar: '',
-      isHideSideBar: false
+      isHideSideBar: false,
+      isLogin: true,
     }
   },
   async created() {
