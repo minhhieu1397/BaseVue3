@@ -1,5 +1,7 @@
 # web-erp-langmaster
-
+Node version: v16.16.0
+vue version: 3.2.37
+vue/cli: 5.0.8
 ## Project setup
 ```
 npm install
@@ -20,5 +22,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

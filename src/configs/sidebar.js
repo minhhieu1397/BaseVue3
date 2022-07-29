@@ -12,33 +12,53 @@ export default {
       child: [
         {
           name: 'Liên hệ',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
-          name: 'Data Marketing'
+          name: 'Data Marketing',
+          controller: 'BookOrderController',
+          action: 'index'
         },
         {
           name: 'Data Tiềm năng',
+          controller: 'SettingController',
+          action: 'index'
         },
         {
-          name: 'Hợp đồng'
+          name: 'Hợp đồng',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
           name: 'Hóa đơn',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
-          name: 'Hóa đơn sách'
+          name: 'Hóa đơn sách',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
           name: 'Xử lí hóa đơn',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
-          name: 'Phiếu sharezone'
+          name: 'Phiếu sharezone',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
           name: 'Lịch sử hóa đơn',
+          controller: 'ContactController',
+          action: 'index'
         },
         {
-          name: 'Lịch sử chăm sóc'
+          name: 'Lịch sử chăm sóc',
+          controller: 'ContactController',
+          action: 'index'
         }
       ]
     },
@@ -99,16 +119,22 @@ export default {
       name: 'report',
       text: 'Báo cáo',
       icon: 'bi-bar-chart',
+      controller: 'ContactController',
+      action: 'index'
     },
     {
       name: 'turnover',
       text: 'Phân bổ doanh thu',
       icon: 'bi-credit-card-2-front-fill',
+      controller: 'ContactController',
+      action: 'index'
     },
     {
       name: 'target',
       text: 'Chỉ tiêu kinh doanh',
       icon: 'bi bi-bookmark-check-fill',
+      controller: 'ContactController',
+      action: 'index'
     },
     {
       name: 'setting',

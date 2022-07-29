@@ -12,7 +12,7 @@
     <nav class="dashboard-nav-list">
       <div v-for="(sideBar, index) in sidebarList" :key="index">
         <div v-if="!sideBar.child">
-          <a href="#" class="dashboard-nav-item">
+          <a v-show="checkPermission(sideBar)" href="#" class="dashboard-nav-item">
             <i :class="sideBar.icon"></i> <span>{{ sideBar.text }}</span>
           </a>
         </div>
@@ -24,7 +24,7 @@
             <i :class="sideBar.icon"></i>{{ sideBar.text }}
           </a>
           <div class='dashboard-nav-dropdown-menu'>
-            <a v-for="(child, key) in sideBar.child" :key="key" href="#" class="dashboard-nav-dropdown-item">
+            <a v-for="(child, key) in sideBar.child" :key="key"  :class="{ 'd-none' : !checkPermission(child) }" href="#" class="dashboard-nav-dropdown-item">
               {{ child.name }}
             </a>
           </div>
@@ -41,6 +41,12 @@
 
   const itemActive = ref(null)
 
+  const props = defineProps({
+    isHideSideBar: Boolean,
+    toggleSidebar: String,
+    permissionList: String
+  });
+
   function setActive(item) {
     if (itemActive.value == item) {
       itemActive.value = null;
@@ -48,11 +54,15 @@
       itemActive.value = item;
     }
   }
-  
-  defineProps({
-    isHideSideBar: Boolean,
-    toggleSidebar: String,
-  });
+
+  function checkPermission(sideBar) {
+    if (props.permissionList[sideBar.controller]) {
+      return props.permissionList[sideBar.controller].includes(sideBar.action)
+    }
+
+    return true;
+  }
+
 </script>
 
 <script>

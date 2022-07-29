@@ -3,7 +3,9 @@ import service from '@/services/service'
 
 export default {
    namespaced: true,
-   state: {},
+   state: {
+      permissionList: null
+   },
    actions: {
       async verifyAccount() {
          let url = apiUrl.VERIFY_USER_ACCOUNT;
@@ -13,8 +15,14 @@ export default {
       },
    },
    mutations: {
+      permissionList(state, item) {
+         state.permissionList = item;
+      },
    },
 
    getters: {
+      listPermission(state) {
+         return state.permissionList
+       },
    }
 }

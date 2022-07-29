@@ -5,6 +5,7 @@
       <SideBar
         :toggleSidebar="toggleSidebar"
         :isHideSideBar="isHideSideBar"
+        :permissionList="permissionList"
       ></SideBar>
       <div class='dashboard-app'>
         <Header
@@ -29,7 +30,8 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import SideBar from './views/commons/SideBar.vue'
 import Header from './views/commons/Header.vue'
-// import { useStore } from "vuex";
+// import { authStore } from "vuex";
+import permission from '../json/permission.json'
 import {mapActions} from "vuex";
 
 export default {
@@ -44,9 +46,11 @@ export default {
       toggleSidebar: '',
       isHideSideBar: false,
       isLogin: true,
+      permissionList: permission
     }
   },
   async created() {
+    this.$store.commit('authStore/permissionList', this.permissionList);
   } , 
   methods: {
     ...mapActions({

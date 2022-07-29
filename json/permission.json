@@ -1,0 +1,188 @@
+{
+    "DefaultController": [
+      "index",
+      "slug",
+      "download",
+      "webp"
+    ],
+    "ContactController": [
+      "index"
+    ],
+    "BookOrderController": [
+      "index"
+    ],
+    "SettingController": [
+      "info",
+      "index",
+      "execCommand"
+    ],
+    "CategoryController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy",
+      "sort"
+    ],
+    "PostController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy",
+      "relevance"
+    ],
+    "TagController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy",
+      "add",
+      "search"
+    ],
+    "MenuController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy",
+      "search"
+    ],
+    "ModuleController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "BannerController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "MediaTalkingAboutUsController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "StudentController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "TeacherController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "CourseController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "TeachingMethodController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "ParentTestimonialController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "PupilTestimonialController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "LangmasterVideoController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "AffiliateLinksController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy",
+      "test",
+      "change"
+    ],
+    "UrlRedirectionController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "RoleController": [
+      "index",
+      "show"
+    ],
+    "UserController": [
+      "index",
+      "create",
+      "store",
+      "show",
+      "edit",
+      "update",
+      "destroy"
+    ],
+    "MediaController": [
+      "index",
+      "crop",
+      "store"
+    ]
+  }
