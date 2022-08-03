@@ -7,7 +7,8 @@ export const authStore = defineStore({
    id: 'auth',
    state: () => ({
       permissionList: [],
-      token: ''
+      token: null,
+      test: ''
     }),
    actions: {
       async verifyAccount() {
@@ -27,6 +28,9 @@ export const authStore = defineStore({
    },
 
    getters: {
+      isLogin() {
+         return this.token !== null
+      },
    },
    persist: {
       storage: sessionStorage,

@@ -32,7 +32,7 @@ import Header from './views/commons/Header.vue'
 import permission from '../json/permission.json'
 import { authStore } from '@/store/modules/authStore'
 import { commonStore } from '@/store/modules/commonStore'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
 export default {
@@ -45,7 +45,6 @@ export default {
     /* Define */
     const auth = authStore()
     const permissionList = ref(permission);
-    const isLogin = ref(true);
     const isHideSideBar = ref(false);
     const toggleSidebar = ref('');
     const common = commonStore()
@@ -60,6 +59,12 @@ export default {
     /* Action */
     auth.definePermissionList(permissionList.value)
     auth.verifyAccount()
+
+    /* Computed */
+
+    const isLogin = computed(() => {
+      return auth.isLogin
+    })
 
     return {
       permissionList,

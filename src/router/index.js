@@ -36,7 +36,19 @@ const routes = [
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/auth/Login.vue")
-  }
+  },
+  {
+    path: "/unauthorized",
+    name: "Unauthorized",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/auth/Unauthorized.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "PageNotFound",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/commons/PageNotFound.vue")
+  },
 ];
 
 const router = createRouter({

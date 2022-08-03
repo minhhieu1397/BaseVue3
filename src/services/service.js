@@ -1,9 +1,10 @@
 import ApiService from './api';
-import { commonStore } from '@/store/modules/commonStore'
 import { pinia } from '@/store'
+import { commonStore } from '@/store/modules/commonStore'
+import router from "@/router";
 
 const common = commonStore(pinia)
-console.log(common.isCallingApi, '21313');
+
 const ERROR_CODE_VALIDATE = 422;
 const ERROR_CODE_UNAUTHORIZED = 401;
 const ERROR_CODE_NOT_FOUND = 404;
@@ -102,12 +103,8 @@ export default {
           error: e
         };
       case ERROR_CODE_UNAUTHORIZED:
-        common.logout();
-        return {
-          status: false,
-          errorCode: errorCode,
-          error: e
-        };
+        router.push({ name: 'Login'})
+        break
       case ERROR_CODE_NOT_FOUND:
         if (responseData.route_name) {
           return {
@@ -122,7 +119,7 @@ export default {
         }
         break
       default:
-        // store.commit('commonStore/SET_ERROR_CODE', errorCode);
+        common.error_code = errorCode
         break;
     }
     return e;

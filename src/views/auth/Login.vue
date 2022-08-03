@@ -32,9 +32,15 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { authStore } from '@/store/modules/authStore'
+
 export default {
   name: "LoginComponent",
+  setup() {
+    /* Define */
+    const auth = authStore()
+    auth.token = null
+  }
 };
 </script>
 

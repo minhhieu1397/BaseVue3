@@ -225,7 +225,6 @@ h1, .h1 {
 
 .dashboard-compact .dashboard-nav {
     display: none;
-    transition: all 2s linear;
 }
 
 .dashboard-nav header {
