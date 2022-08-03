@@ -1,6 +1,9 @@
 import ApiService from './api';
-import store from '@/store';
+import { commonStore } from '@/store/modules/commonStore'
+import { pinia } from '@/store'
 
+const common = commonStore(pinia)
+console.log(common.isCallingApi, '21313');
 const ERROR_CODE_VALIDATE = 422;
 const ERROR_CODE_UNAUTHORIZED = 401;
 const ERROR_CODE_NOT_FOUND = 404;
@@ -8,10 +11,10 @@ const ERROR_CODE_NOT_FOUND = 404;
 export default {
   async post(url, params = {}) {
     try {
-      if (store.state.commonStore.isCallingApi) return;
-      store.commit('commonStore/SET_IS_CALLING_API', true);
+      if (common.isCallingApi) return;
+      common.isCallingApi = true;
       let result = await ApiService.post(url, params);
-      store.commit('commonStore/SET_IS_CALLING_API', false);
+      common.isCallingApi = false;
       return {
         statusCode: result.status,
         status: result.data.status,
@@ -23,10 +26,10 @@ export default {
   },
   async put(url, params = {}) {
     try {
-      if (store.state.commonStore.isCallingApi) return;
-      store.commit('commonStore/SET_IS_CALLING_API', true);
+      if (common.isCallingApi) return;
+      common.isCallingApi = true;
       let result = await ApiService.put(url, params);
-      store.commit('commonStore/SET_IS_CALLING_API', false);
+      common.isCallingApi = false;
 
       return {
         statusCode: result.status,
@@ -50,9 +53,9 @@ export default {
   },
   async getWithLoading(url, params = {}) {
     try {
-      store.commit('commonStore/SET_IS_CALLING_API', true);
+      common.isCallingApi = true;
       let result = await ApiService.get(url, params);
-      store.commit('commonStore/SET_IS_CALLING_API', false);
+      common.isCallingApi = false;
       return {
         status: result.status,
         data: result.data.data,
@@ -63,9 +66,9 @@ export default {
   },
   async download(url, params = {}) {
     try {
-      store.commit('commonStore/SET_IS_CALLING_API', true);
+      common.isCallingApi = true;
       let result = await ApiService.get(url, params, {responseType: 'blob'});
-      store.commit('commonStore/SET_IS_CALLING_API', false);
+      common.isCallingApi = false;
       return {
         headers: result.headers,
         status: result.status,
@@ -78,7 +81,7 @@ export default {
 
   async _setError(e) {
     let errorCode = e.response ? e.response.status : 500;
-    store.commit('commonStore/SET_IS_CALLING_API', false);
+    common.isCallingApi = false;
 
     let responseData = e.response.data;
     if (
@@ -99,7 +102,7 @@ export default {
           error: e
         };
       case ERROR_CODE_UNAUTHORIZED:
-        store.dispatch('authStore/logout');
+        common.logout();
         return {
           status: false,
           errorCode: errorCode,
@@ -119,7 +122,7 @@ export default {
         }
         break
       default:
-        store.commit('commonStore/SET_ERROR_CODE', errorCode);
+        // store.commit('commonStore/SET_ERROR_CODE', errorCode);
         break;
     }
     return e;

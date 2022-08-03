@@ -1,28 +1,35 @@
 import apiUrl from "../../configs/apiUrl";
 import service from '@/services/service'
+import { defineStore } from 'pinia'
 
-export default {
+export const authStore = defineStore({
    namespaced: true,
-   state: {
-      permissionList: null
-   },
+   id: 'auth',
+   state: () => ({
+      permissionList: [],
+      token: ''
+    }),
    actions: {
       async verifyAccount() {
          let url = apiUrl.VERIFY_USER_ACCOUNT;
-         const result = await service.get(url);
+         const result = await service.getWithLoading(url);
 
          return result
       },
-   },
-   mutations: {
-      permissionList(state, item) {
-         state.permissionList = item;
+      definePermissionList(item) {
+         this.permissionList = item;
+      },
+      async logout() {
+         this.permissionList = [];
+         this.token = [];
+         return {};
       },
    },
 
    getters: {
-      listPermission(state) {
-         return state.permissionList
-       },
-   }
-}
+   },
+   persist: {
+      storage: sessionStorage,
+      paths: ['token'],
+   },
+})

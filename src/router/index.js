@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import store from "../store";
+import { authStore } from '../store/modules/authStore'
 
 const routes = [
   {
@@ -45,7 +45,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const listPermission = store.getters['authStore/listPermission']; 
+  const auth = authStore()
+  const listPermission = auth.permissionList; 
   const permission = to.meta.permission ? to.meta.permission : null;
 
   if (permission && !listPermission[permission.controller].includes(permission.action)) {

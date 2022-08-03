@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'opacity': isLoading }"></div>
+  <div :class="{ 'opacity': isCallingApi }"></div>
     <div v-if="isLogin">
       <div class='dashboard' :class="{'dashboard-compact': isHideSideBar}">
       <SideBar
@@ -23,16 +23,17 @@
   <div v-else>
     <router-view />
   </div>
-  <div :class="{ 'loader': isLoading }"></div>
+  <div :class="{ 'loader': isCallingApi }"></div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import SideBar from './views/commons/SideBar.vue'
 import Header from './views/commons/Header.vue'
-// import { authStore } from "vuex";
 import permission from '../json/permission.json'
-import {mapActions} from "vuex";
+import { authStore } from '@/store/modules/authStore'
+import { commonStore } from '@/store/modules/commonStore'
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 export default {
   name: 'App',
@@ -40,27 +41,36 @@ export default {
     SideBar,
     Header
   },
-  data() {
+  setup() {
+    /* Define */
+    const auth = authStore()
+    const permissionList = ref(permission);
+    const isLogin = ref(true);
+    const isHideSideBar = ref(false);
+    const toggleSidebar = ref('');
+    const common = commonStore()
+    const { getIsCallApi: isCallingApi } = storeToRefs(common)
+
+    /* Method */
+    function setValueToggleSidebar(value) {
+      toggleSidebar.value = value;
+      isHideSideBar.value = !isHideSideBar.value;
+    }
+
+    /* Action */
+    auth.definePermissionList(permissionList.value)
+    auth.verifyAccount()
+
     return {
-      isLoading: false,
-      toggleSidebar: '',
-      isHideSideBar: false,
-      isLogin: true,
-      permissionList: permission
+      permissionList,
+      isLogin,
+      isHideSideBar,
+      toggleSidebar,
+      setValueToggleSidebar,
+      isCallingApi,
+      common,
     }
   },
-  async created() {
-    this.$store.commit('authStore/permissionList', this.permissionList);
-  } , 
-  methods: {
-    ...mapActions({
-      verifyAccount: 'authStore/verifyAccount',
-    }),
-    setValueToggleSidebar(value) {
-      this.toggleSidebar = value;
-      this.isHideSideBar = !this.isHideSideBar;
-    }
-  }
 }
 </script>
 

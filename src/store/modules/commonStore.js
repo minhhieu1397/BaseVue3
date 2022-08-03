@@ -1,27 +1,18 @@
-const getDefaultState = () => {
-  return {
+import { defineStore } from 'pinia'
+
+export const commonStore = defineStore({
+  namespaced: true,
+  id: 'common',
+  state: () => ({
     isCallingApi: false,
     error_code: null,
     error: null,
-    isIE: false,
-  }
-};
-const state = getDefaultState();
-
-const mutations = {
-  SET_IS_CALLING_API(state, payload) {
-    state.isCallingApi = payload;
+  }),
+  actions: {
+    
   },
-  SET_ERROR_CODE(state, payload) {
-    state.error_code = payload;
-  },
-  SET_ERROR(state, payload) {
-    state.error = payload;
-  },
-};
 
-const actions = {};
-
-export default {
-  state, mutations, actions
-};
+  getters: {
+    getIsCallApi: (state) => state.isCallingApi
+  },
+})

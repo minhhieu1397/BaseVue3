@@ -44,7 +44,7 @@
   const props = defineProps({
     isHideSideBar: Boolean,
     toggleSidebar: String,
-    permissionList: String
+    permissionList: Object
   });
 
   function setActive(item) {

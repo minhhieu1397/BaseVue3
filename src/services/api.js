@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '@/store'
+import { authStore } from '@/store/modules/authStore'
 
 let API_URL = '';
 
@@ -13,7 +13,9 @@ axios.defaults.headers.common['Expires'] = 0;
 axios.defaults.headers.common['Timezone'] = new Date().getTimezoneOffset();
 axios.defaults.headers.common['X-Request-With'] = 'XMLHttpRequest';
 axios.interceptors.request.use(async function (config) {
-  let token = store.getters['authStore/token'];
+  const auth = authStore()
+
+  let token = auth.token;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
