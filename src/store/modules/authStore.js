@@ -1,6 +1,7 @@
 import apiUrl from "../../configs/apiUrl";
 import service from '@/services/service'
 import { defineStore } from 'pinia'
+import router from "@/router";
 
 export const authStore = defineStore({
    namespaced: true,
@@ -8,7 +9,7 @@ export const authStore = defineStore({
    state: () => ({
       permissionList: [],
       token: null,
-      test: ''
+      user: null
     }),
    actions: {
       async verifyAccount() {
@@ -17,14 +18,22 @@ export const authStore = defineStore({
 
          return result
       },
+      async login(params) {
+         let url = apiUrl.LOGIN;
+         const result = await service.post(url, params);
+         if (result.statusCode && result.statusCode === 200) {
+            this.token = result.data.data.token;
+            this.user = result.data.data.user;
+         }
+         return result
+      },
       definePermissionList(item) {
          this.permissionList = item;
       },
       async logout() {
-         this.permissionList = [];
-         this.token = [];
-         return {};
-      },
+         this.token = null;
+         router.push({ name: 'Login'})
+      }
    },
 
    getters: {

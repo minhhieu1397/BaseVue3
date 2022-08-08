@@ -25,9 +25,6 @@ const routes = [
         action: 'index'
       }
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
@@ -60,8 +57,10 @@ router.beforeEach((to, from, next) => {
   const auth = authStore()
   const listPermission = auth.permissionList; 
   const permission = to.meta.permission ? to.meta.permission : null;
-
-  if (permission && !listPermission[permission.controller].includes(permission.action)) {
+  if (
+    (permission && !listPermission[permission.controller].includes(permission.action)) ||
+    (to.name != 'Login' && !auth.token)
+  ) {
     next('/login');
   }
   window.document.title = to.meta && to.meta.title ? to.meta.title : 'Binggo';

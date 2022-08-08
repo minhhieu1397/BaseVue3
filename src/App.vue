@@ -1,27 +1,28 @@
 <template>
   <div :class="{ 'opacity': isCallingApi }"></div>
-    <div v-if="isLogin">
-      <div class='dashboard' :class="{'dashboard-compact': isHideSideBar}">
+    <div>
+      <div 
+        :class="{'dashboard-compact': isHideSideBar, 'login': !isLogin, 'dashboard': isLogin}"
+      >
       <SideBar
+        v-if="isLogin"
         :toggleSidebar="toggleSidebar"
         :isHideSideBar="isHideSideBar"
         :permissionList="permissionList"
       ></SideBar>
-      <div class='dashboard-app'>
+      <div class='dashboard-app' :class="{'dashboard-app' : isLogin, 'margin-zero': !isLogin}">
         <Header
+          v-if="isLogin"
           @toggle-sidebar="setValueToggleSidebar"
           :isHideSideBar="isHideSideBar"
         ></Header>
-        <div class='dashboard-content'>
+        <div class='dashboard-content' :class="{'content-login': !isLogin}">
           <div class='container'>
             <router-view />
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div v-else>
-    <router-view />
   </div>
   <div :class="{ 'loader': isCallingApi }"></div>
 </template>
@@ -49,7 +50,6 @@ export default {
     const toggleSidebar = ref('');
     const common = commonStore()
     const { getIsCallApi: isCallingApi } = storeToRefs(common)
-
     /* Method */
     function setValueToggleSidebar(value) {
       toggleSidebar.value = value;
@@ -65,7 +65,6 @@ export default {
     const isLogin = computed(() => {
       return auth.isLogin
     })
-
     return {
       permissionList,
       isLogin,
@@ -86,6 +85,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.login {
+  background: #f5f5f5 !important;
+}
+
+.margin-zero {
+  margin-left: 0px !important;
+  margin-top: 0px !important;
+}
+.content-login {
+  padding: 0 !important;
 }
 
 .loader {

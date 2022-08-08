@@ -7,21 +7,21 @@
       <div class="validate-form col-md-12 col-lg-6">
         <span class="login100-form-title">Đăng nhập hệ thống</span>
         <div class="wrap-input100">
-          <input type="text" class="input100 form-control" placeholder="Email">
+          <input type="text" v-model="user.email" class="input100 form-control" placeholder="Email">
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <i class="bi bi-envelope"></i>
           </span>
         </div>
         <div class="wrap-input100">
-          <input type="password" class="input100 form-control" placeholder="Mật khẩu">
+          <input type="password" v-model="user.password" class="input100 form-control" placeholder="Mật khẩu">
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <i class="bi bi-lock"></i>
           </span>
         </div>
         <div class="container-login100-form-btn">
-          <button class="login100-form-btn">Đặng nhập</button>
+          <button class="login100-form-btn" @click="login()">Đặng nhập</button>
         </div>
         <div class="text-center" style="padding-top: 136px">
           <a href="" class="txt2">Create your Account</a>
@@ -33,6 +33,8 @@
 
 <script>
 import { authStore } from '@/store/modules/authStore'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: "LoginComponent",
@@ -40,6 +42,24 @@ export default {
     /* Define */
     const auth = authStore()
     auth.token = null
+
+    const user = ref({ 
+      email: '',
+      password: ''
+    })
+
+    const router = useRouter()
+
+    const login = async () => {
+      const result = await auth.login(user.value)
+      if (result.status == 200) {
+        router.push({ name: 'Home'})
+      }
+    }
+    return {
+      user,
+      login
+    }
   }
 };
 </script>
@@ -56,17 +76,6 @@ export default {
   background: #f5f5f5 !important;
 }
 
-.wrap-login {
-  width: 960px;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 177px 130px 33px 95px;
-}
-
 .login-pic {
   width: 316px;
   will-change: transform;
@@ -81,16 +90,6 @@ export default {
   -ms-transform: scale(1.1); /* IE 9 */
   -webkit-transform: scale(1.1); /* Safari 3-8 */
   transform: scale(1.1); 
-}
-
-.login100-form-title {
-  font-size: 24px;
-  color: #333;
-  line-height: 1.2;
-  text-align: center;
-  width: 100%;
-  display: block;
-  padding-bottom: 54px;
 }
 
 .wrap-input100 {
@@ -211,8 +210,51 @@ a {
 }
 
 @media (max-width: 992px) {
+  .wrap-login {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
   .login-pic {
     display: none !important;
+  }
+
+  .login100-form-title {
+    margin-top: 50px;
+    font-size: 24px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 54px;
+  }
+}
+
+@media (min-width: 992px) {
+  .wrap-login {
+    width: 960px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 177px 130px 33px 95px;
+  }
+
+  .login100-form-title {
+    font-size: 24px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 54px;
   }
 }
 </style>

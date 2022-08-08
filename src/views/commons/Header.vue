@@ -14,7 +14,7 @@
           <li>
               <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" @click="logout()">Sign out</a></li>
       </ul>
   </div>
   </header>
@@ -22,6 +22,9 @@
 
 <script setup>
   import { defineProps, watch, toRefs, defineEmits, ref } from 'vue'
+  import { authStore } from '@/store/modules/authStore'
+
+  const auth = authStore()
 
   const changeBackground = ref(false)
   const props = defineProps({
@@ -39,6 +42,10 @@
     } else {
       emit('toggle-sidebar', 'dashboard-compact');
     }
+  }
+
+  function logout() {
+    auth.logout()
   }
 
   //Watch

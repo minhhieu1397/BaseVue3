@@ -14,7 +14,7 @@ export default {
     try {
       if (common.isCallingApi) return;
       common.isCallingApi = true;
-      let result = await ApiService.post(url, params);
+      const result = await ApiService.post(url, params);
       common.isCallingApi = false;
       return {
         statusCode: result.status,
@@ -83,6 +83,7 @@ export default {
   async _setError(e) {
     let errorCode = e.response ? e.response.status : 500;
     common.isCallingApi = false;
+    console.log(e);
 
     let responseData = e.response.data;
     if (

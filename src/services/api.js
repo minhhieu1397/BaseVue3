@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { authStore } from '@/store/modules/authStore'
 
-let API_URL = '';
-
+let API_URL = process.env.VUE_APP_LOGIN;
 axios.defaults.baseURL = API_URL;
 axios.defaults.headers.common['contentType'] = 'application/json';
 axios.defaults.headers.common['Cache-Control'] = 'no-cache';
