@@ -12,12 +12,6 @@ export const authStore = defineStore({
       user: null
     }),
    actions: {
-      async verifyAccount() {
-         let url = apiUrl.VERIFY_USER_ACCOUNT;
-         const result = await service.getWithLoading(url);
-
-         return result
-      },
       async login(params) {
          let url = apiUrl.LOGIN;
          const result = await service.post(url, params);

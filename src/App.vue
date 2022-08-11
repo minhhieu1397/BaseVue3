@@ -58,7 +58,6 @@ export default {
 
     /* Action */
     auth.definePermissionList(permissionList.value)
-    auth.verifyAccount()
 
     /* Computed */
 
