@@ -24,7 +24,11 @@
           <button class="login100-form-btn" @click="login()">Đặng nhập</button>
         </div>
         <div class="text-center" style="padding-top: 136px">
-          <a href="" class="txt2">Create your Account</a>
+          <a href="" class="txt2 mt-2">Create your Account</a>
+        </div>
+        <div>
+          <!-- <GoogleLogin :callback="callback"> -->
+          <button class="txt2" @click="loginGoogle">Login Using Google</button>
         </div>
       </div>
     </div>
@@ -35,6 +39,7 @@
 import { authStore } from '@/store/modules/authStore'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { googleAuthCodeLogin } from "vue3-google-login"
 
 export default {
   name: "LoginComponent",
@@ -50,6 +55,20 @@ export default {
 
     const router = useRouter()
 
+    const callback = (response) => {
+      console.log("Handle the response", response)
+    }
+
+    const loginGoogle = () => {
+      googleAuthCodeLogin().then((response) => {
+        console.log("Handle the response", response)
+        const result = auth.loginGoogle(response)
+        if (result.status == 200) {
+          router.push({ name: 'Home'})
+        }
+      })
+    }
+
     const login = async () => {
       const result = await auth.login(user.value)
       if (result.status == 200) {
@@ -58,7 +77,9 @@ export default {
     }
     return {
       user,
-      login
+      login,
+      callback,
+      loginGoogle
     }
   }
 };

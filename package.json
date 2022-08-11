@@ -12,10 +12,12 @@
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
     "core-js": "^3.8.3",
+    "google-one-tap": "^1.0.6",
     "pinia": "^2.0.0-rc.10",
     "pinia-plugin-persistedstate": "^2.0.1",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2",
+    "vue3-google-login": "^2.0.11",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },

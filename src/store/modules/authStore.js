@@ -27,6 +27,15 @@ export const authStore = defineStore({
          }
          return result
       },
+      async loginGoogle(params) {
+         let url = apiUrl.LOGIN_GOOGLE;
+         const result = await service.post(url, params);
+         if (result.statusCode && result.statusCode === 200) {
+            this.token = result.data.data.token;
+            this.user = result.data.data.user;
+         }
+         return result
+      },
       definePermissionList(item) {
          this.permissionList = item;
       },
