@@ -35,7 +35,7 @@ import { authStore } from '@/store/modules/authStore'
 import { commonStore } from '@/store/modules/commonStore'
 import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-
+      
 export default {
   name: 'App',
   components: {

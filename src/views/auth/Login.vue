@@ -23,8 +23,16 @@
         <div class="container-login100-form-btn">
           <button class="login100-form-btn" @click="login()">Đặng nhập</button>
         </div>
-        <div class="text-center" style="padding-top: 136px">
+        <div class="text-center" style="padding-top: 90px">
           <a href="" class="txt2">Create your Account</a>
+        </div>
+        <div>
+          <a class="fb btn mt-3" @click="facebookLoginByDialog()">
+            <i class="bi bi-facebook"></i> Login with Facebook
+          </a>
+          <a class="google btn mt-3" @click="getToken()">
+            <i class="bi bi-google"></i> Login with Google+
+          </a>
         </div>
       </div>
     </div>
@@ -50,15 +58,58 @@ export default {
 
     const router = useRouter()
 
+    /* Method */
     const login = async () => {
       const result = await auth.login(user.value)
       if (result.status == 200) {
         router.push({ name: 'Home'})
       }
     }
+
+    // login Google
+    const loginWithProvider = async (tokenResponse, provider) => {
+      let params = {
+        access_token: tokenResponse,
+        provider: provider
+      }
+      const result = await auth.loginWithProvider(params)
+      if (result.status == 200) {
+        router.push({ name: 'Home'})
+      }
+    }
+
+    let client;
+    let google = window.google
+    function getToken() {
+      client = google.accounts.oauth2.initTokenClient({
+        client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
+        api_key: process.env.VUE_APP_GOOGLE_API_KEY, 
+        scope: 'https://www.googleapis.com/auth/calendar.readonly \
+                https://www.googleapis.com/auth/contacts.readonly',
+        callback: (tokenResponse) => {
+          loginWithProvider(tokenResponse.access_token, 'google')
+        },
+      });
+      client.requestAccessToken();
+    }
+
+    // Login FaceBook
+    function facebookLoginByDialog()
+    {
+      let FB = window.FB
+      
+      FB.login(function(response) {
+        if(response.status === "connected") {
+          loginWithProvider(response.authResponse.accessToken, 'facebook')
+        }
+      }, {scope: 'public_profile,email', auth_type: 'reauthenticate'});
+    }
+
     return {
       user,
-      login
+      login,
+      getToken,
+      facebookLoginByDialog
     }
   }
 };
@@ -255,6 +306,16 @@ a {
     width: 100%;
     display: block;
     padding-bottom: 54px;
+  }
+
+  .fb {
+    background-color: #3B5998;
+    color: white;
+  }
+
+  .google {
+    background-color: #55ACEE;
+    color: white;
   }
 }
 </style>

@@ -1,4 +1,4 @@
 export default {
-  VERIFY_USER_ACCOUNT: 'https://jsonplaceholder.typicode.com/users',
   LOGIN: 'login',
+  LOGIN_GOOGLE: 'login-with-provider'
 };
