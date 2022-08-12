@@ -17,9 +17,9 @@ export default {
       const result = await ApiService.post(url, params);
       common.isCallingApi = false;
       return {
-        statusCode: result.status,
-        status: result.data.status,
-        data: result.data,
+        statusCode: result.status ? result.status : null,
+        status: result.data.status ?result.data.status : null,
+        data: result.data ? result.data : null,
       };
     } catch (e) {
       return this._setError(e);
@@ -83,7 +83,6 @@ export default {
   async _setError(e) {
     let errorCode = e.response ? e.response.status : 500;
     common.isCallingApi = false;
-    console.log(e);
 
     let responseData = e.response.data;
     if (
@@ -97,6 +96,7 @@ export default {
 
     switch (errorCode) {
       case ERROR_CODE_VALIDATE:
+        console.log(e.response);
         return {
           status: false,
           errorCode: errorCode,

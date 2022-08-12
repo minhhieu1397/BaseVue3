@@ -20,6 +20,12 @@
             <i class="bi bi-lock"></i>
           </span>
         </div>
+        <div v-if="messageErr">
+          <div class="alert alert-danger" role="alert">
+            {{ messageErr }}
+          </div>
+        </div>
+        
         <div class="container-login100-form-btn">
           <button class="login100-form-btn" @click="login()">Đặng nhập</button>
         </div>
@@ -56,6 +62,8 @@ export default {
       password: ''
     })
 
+    const messageErr = ref('')
+
     const router = useRouter()
 
     /* Method */
@@ -63,6 +71,8 @@ export default {
       const result = await auth.login(user.value)
       if (result.status == 200) {
         router.push({ name: 'Home'})
+      } else {
+        messageErr.value = result.data
       }
     }
 
@@ -109,7 +119,8 @@ export default {
       user,
       login,
       getToken,
-      facebookLoginByDialog
+      facebookLoginByDialog,
+      messageErr
     }
   }
 };
